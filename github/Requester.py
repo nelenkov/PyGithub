@@ -568,8 +568,9 @@ class Requester:
         if status == 202 and (
             verb == "GET" or verb == "HEAD"
         ):  # only for requests that are considered 'safe' in RFC 2616
-            time.sleep(Consts.PROCESSING_202_WAIT_TIME)
-            return self.__requestRaw(original_cnx, verb, url, requestHeaders, input)
+            #time.sleep(Consts.PROCESSING_202_WAIT_TIME)
+            #return self.__requestRaw(original_cnx, verb, url, requestHeaders, input)
+            raise self.__createException(status, responseHeaders, output)
 
         if status == 301 and "location" in responseHeaders:
             o = urllib.parse.urlparse(responseHeaders["location"])
